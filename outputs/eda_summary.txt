@@ -1,0 +1,26 @@
+PHASE 1 EDA SUMMARY (data from web)
+Total rows: 78309
+label3
+legitimate          44949
+scam_smishing       26215
+promotional_spam     7145
+Name: count, dtype: int64
+label3
+legitimate          0.574
+scam_smishing       0.335
+promotional_spam    0.091
+Name: proportion, dtype: float64
+
+Mean length by class:
+label3
+legitimate           67.8
+promotional_spam    130.2
+scam_smishing       127.5
+Name: msg_length, dtype: float64
+
+Structural % by class:
+                  has_url  has_phone  has_money  has_urgency  has_shortener
+label3                                                                     
+legitimate            0.6        1.1        0.4          6.3            0.1
+promotional_spam     17.5        8.1        5.9         21.5            4.2
+scam_smishing        23.8       13.2        6.8         52.9            5.6

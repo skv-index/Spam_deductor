@@ -1,0 +1,24 @@
+PHASE 3 - RESULT ANALYSIS & BUSINESS INSIGHTS
+=======================================================
+Best model: XGBoost | Test size: 15662 | Errors: 748 (4.78%)
+
+PER-CLASS F1 (from per_class_report.csv):
+  legitimate: P=0.969 R=0.976 F1=0.973 (n=8990)
+  promotional_spam: P=0.864 R=0.794 F1=0.827 (n=1429)
+  scam_smishing: P=0.946 R=0.954 F1=0.950 (n=5243)
+
+ERROR BREAKDOWN:
+  scam missed as legitimate (CRITICAL - fraud loss): 129
+  scam confused as promo (under-blocking): 112
+  promo over-blocked as scam (user annoyance): 143
+  legitimate flagged (false positive): 212
+
+TOP SIGNALS (top_features.csv + plots/06):
+  off, urgency_hits, has_url, url_count, word_count, msg_length, download, stores, rs, fee
+
+BUSINESS RECOMMENDATIONS:
+  1. Banks/telecom: deploy scam-vs-rest first (scam F1~0.95). Route 'promo' to soft-warning, 'scam' to hard-block + user reason (LIME words).
+  2. Cost view: 1 missed scam >> 10 over-blocked promos. Tune threshold: favor recall on scam_smishing (currently R=~0.95, keep).
+  3. Promo weakness (F1~0.83, 9% of data): collect more promo samples; add sender-ID / time-of-day features next.
+  4. Explainability: show top LIME words (e.g. otp, verify, click, prize + <URL>) in UI so users trust flags and report mistakes.
+  5. Monitoring: track % flagged as scam weekly; spike = new campaign. Retrain monthly with user-reported smishing.
